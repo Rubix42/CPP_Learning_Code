@@ -1,6 +1,8 @@
 #undef NDEBUG
 
 #include "Tests.h"
+#include "PhoneNumber.h"
+#include "Person.h"
 
 #include <cassert>
 #include <iostream>
@@ -27,7 +29,6 @@ void t1_phone_number_validity()
     // PhoneNumber needs to be a series of 5 numbers in range [0;99].
     // Advice: Keep the passing of the parameters simple (KISS principle).
 
-#if ENABLE_T1
     PhoneNumber phone_nb_1 { 1, 64, 7, 12, 31 };
     assert(phone_nb_1.is_valid());
 
@@ -43,7 +44,6 @@ void t1_phone_number_validity()
     assert(!phone_nb_4.is_valid());
     
     std::cout << "T1 passed" << std::endl;
-#endif
 }
 
 void t2_person_content()
@@ -51,7 +51,6 @@ void t2_person_content()
     // A Person has a first name, a surname and a PhoneNumber.
     // The PhoneNumber can be modified.
 
-#if ENABLE_T2
     Person mickey { "Mickey", "Mouse" };
     assert(mickey.get_full_name() == "Mickey Mouse");
     assert(!mickey.get_phone_number().is_valid());
@@ -64,7 +63,6 @@ void t2_person_content()
     assert(donald.get_phone_number().is_valid());
     
     std::cout << "T2 passed" << std::endl;
-#endif
 }
 
 void t3_persons_are_comparable()

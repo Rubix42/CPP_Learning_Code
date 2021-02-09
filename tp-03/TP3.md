@@ -6,19 +6,20 @@
 
 | conteneur    | insertion (en tête / en fin) | suppression (en tête / en fin) | accès |
 |--------------|-----------|----------|-----------|
-| array        | N/A       | N/A      |           |
-| vector       |           |          |           |
-| deque        |           |          |           |
-| forward_list |           |          |           |
-| list         |           |          |           |
-| set          |           |          |           |
-| unordered_set|           |          |           |
+| array        | N/A       | N/A      |     1     |
+| vector       |     1     |    n     |     1     |
+| deque        |     1     |    1     |     1     |
+| forward_list |     1     |    1     |     1?    |
+| list         |     1     |    1     |     1?    |
+| set          |  log(n)   |  log(n)  |  log(n)   |
+| unordered_set|     n     |    n     |     n     |
 
 2. Supposons que vous avez récupéré un itérateur sur un élément d'un conteneur avec : `auto it = std::find(c.begin(), c.end(), element_to_find)`.
 En fonction du type de conteneur, quelles sont les opérations succeptibles d'invalider cet itérateur ? Essayez d'être précis dans vos réponses.\
 Exemple : Si `c` est un `std::vector`, alors `it` peut être invalidé en cas de suppression d'un élément précédant `it` dans le conteneur.
 
 3. Quelle est la différence entre les fonctions `push_back` et `emplace_back` de la classe `std::vector<std::string>` ?
+push_back ajoute un élément passé en paramètre emplace_back construit l'élément à ajouter.
 
 4. Dans le code suivant, la classe `RelativePoint` modélise un point en 2D, dont la position est relative à celle d'un point d'origine.
 Pourquoi est-ce que l'expression `std::vector<RelativePoint>(3)` ne compile pas, alors que `std::vector<AbsolutePoint>(3)` compile ?\
@@ -36,6 +37,9 @@ class RelativePoint {
   AbsolutePoint        _shift;
   
 public:
+  RelativePoint() :
+    RelativePoint {AbsolutePoint()}
+  {}
   RelativePoint(const AbsolutePoint shift, const AbsolutePoint& origin = default_origin) :
     _origin { origin },
     _shift { shift }
@@ -46,10 +50,14 @@ public:
 };
 ```
 
+Pas de constructeur par défaut pour la classe RelativePoint
+
 5. [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)\
 Remplissez un `std::vector<unsigned long>` avec les nombres allant de 2 à 100'000. Ensuite, pour chaque entier `x` tel que `x² <= 100'000`, supprimez du tableau tous les entiers divisibles par `x`, excepté `x` lui-même. Les nombres restants dans le tableau devraient correspondre à tous les nombres premiers compris entre 2 et 100'000.\
 Combien y en a-t-il ? Ecrivez ce résultat dans la console.\
 Copiez et modifiez votre algorithme, afin d'utiliser en place du `std::vector` une `std::deque`, un `std::set` et un `std::unordered_set`. Augmentez ensuite l'intervalle d'exécution à \[2; 5'000'000\] et testez chacune des quatre versions. Que pouvez-vous constater ?
+
+
 
 6. Pourquoi le programme suivant ne compile pas ? Ajoutez le nécessaire à la classe `NumAndName` pour le corriger et faire en sorte qu'il affiche `zero un deux trois`.\
 Modifiez-le de nouveau afin d'obtenir `trois deux un zero`.
@@ -89,11 +97,13 @@ int main() {
 Vous allez implémenter un annuaire téléphonique (comme le gros bottin qui traîne sur une étagère chez vos grand-parents).
 
 L'intérêt de l'annuaire, c'est que vous pouvez y rechercher facilement les numéros de téléphone de vos amis et ennemis, dès lors que vous connaissez leur
-nom et prénom. Le bottin étant trié par ordre alphabétique, quelle est la complexité de la recherche d'une personne dedans ?
+nom et prénom. Le bottin étant trié par ordre alphabétique, quelle est la complexité de la recherche d'une personne dedans ? log(n)
 Afin d'avoir cette même complexité dans votre programme, quel conteneur pouvez-vous utiliser pour stocker les entrées de l'annuaire ? 
+Un set
 
 Vous aurez également besoin de modéliser un numéro de téléphone, qui correspond à une série de 5 nombres entiers.
 Quel est le conteneur le plus adapté pour représenter cet objet ?
+Un array d'entier
 
 Une fois que vous aurez répondu aux questions ci-dessus, vous pourrez commencer à implémentez les classes modélisant la situation.
 
