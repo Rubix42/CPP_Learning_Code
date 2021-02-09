@@ -35,8 +35,8 @@ AbsolutePoint default_origin;
 class RelativePoint {
   const AbsolutePoint& _origin;
   AbsolutePoint        _shift;
-  
 public:
+<<<<<<< HEAD
   RelativePoint() :
     RelativePoint {AbsolutePoint()}
   {}
@@ -45,6 +45,8 @@ public:
     _shift { shift }
   {}
 
+=======
+>>>>>>> upstream/master
   double get_x() const { return _origin.x + _shift.x; }
   double get_y() const { return _origin.y + _shift.y; }
 };
@@ -55,7 +57,7 @@ Pas de constructeur par défaut pour la classe RelativePoint
 5. [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)\
 Remplissez un `std::vector<unsigned long>` avec les nombres allant de 2 à 100'000. Ensuite, pour chaque entier `x` tel que `x² <= 100'000`, supprimez du tableau tous les entiers divisibles par `x`, excepté `x` lui-même. Les nombres restants dans le tableau devraient correspondre à tous les nombres premiers compris entre 2 et 100'000.\
 Combien y en a-t-il ? Ecrivez ce résultat dans la console.\
-Copiez et modifiez votre algorithme, afin d'utiliser en place du `std::vector` une `std::deque`, un `std::set` et un `std::unordered_set`. Augmentez ensuite l'intervalle d'exécution à \[2; 5'000'000\] et testez chacune des quatre versions. Que pouvez-vous constater ?
+Copiez et modifiez votre algorithme, afin d'utiliser en place du `std::vector` une `std::deque`, un `std::set` et un `std::unordered_set`. Augmentez ensuite l'intervalle d'exécution à \[2; 1'000'000\] et testez chacune des quatre versions. Que pouvez-vous constater ?
 
 
 
